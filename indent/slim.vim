@@ -49,6 +49,8 @@ function! GetSlimIndent()
     return indent
   elseif line =~ '^/\%(\[[^]]*\]\)\=$'
     return increase
+  elseif line =~ '^[\.#]'
+    return increase
   elseif line =~? '^div'
     return increase
   elseif group == 'hamlFilter'
