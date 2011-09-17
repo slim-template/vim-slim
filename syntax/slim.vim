@@ -30,7 +30,7 @@ unlet! b:current_syntax
 silent! syn include @slimCoffee syntax/coffee.vim
 unlet! b:current_syntax
 
-" Include HTML 
+" Include HTML
 runtime! syntax/html.vim
 unlet! b:current_syntax
 
@@ -38,7 +38,7 @@ setlocal iskeyword+=:
 
 syn region slimInterpolation matchgroup=slimInterpolationDelimiter start="#{" end="}" contained contains=@slimRuby
 
-syn region slimRubyOutput start="=\s*" skip=",\s*" end=" " contained contains=@slimRuby
+syn region slimRubyOutput start="=\s*" skip=",\s*" end="$" contained contains=@slimRuby
 syn region slimHtml start="^\s*[^-=]\w" end="$" contains=htmlTagName,htmlArg,htmlString,slimInterpolation,slimRubyOutput keepend
 
 syn region slimRubyCode start="[-=]" end="$" contains=@slimRuby
