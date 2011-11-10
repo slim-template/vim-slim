@@ -58,5 +58,3 @@ hi def link slimFilter                 Special
 hi def link slimInterpolationDelimiter Delimiter
 
 let b:current_syntax = "slim"
-
-set tw=0
