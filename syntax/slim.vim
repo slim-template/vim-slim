@@ -41,7 +41,8 @@ syn region slimInterpolation matchgroup=slimInterpolationDelimiter start="#{" en
 syn region slimRubyOutput start="=\s*" skip=",\s*" end="$" contained contains=@slimRuby
 syn region slimHtml start="^\s*[^-=]\w" end="$" contains=htmlTagName,htmlArg,htmlString,slimInterpolation,slimRubyOutput keepend
 
-syn region slimRubyCode start="[-=]" end="$" contains=@slimRuby
+syn region slimRubyCode start="[-=][^']" end="$" contains=@slimRuby
+syn region slimRubyWhitespaceCode start="^\s*='"ms=e+1 end="$" contains=@slimRuby
 
 syn match slimComment /^\(\s*\)[/].*\(\n\1\s.*\)*/
 syn match slimText /^\(\s*\)[`|'].*\(\n\1\s.*\)*/
