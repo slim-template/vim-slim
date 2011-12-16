@@ -37,7 +37,7 @@ silent! syn include @slimCoffee syntax/coffee.vim
 unlet! b:current_syntax
 
 " Include HTML
-runtime! syntax/html.vim
+syn include @slimHtml syntax/scss.vim
 unlet! b:current_syntax
 
 setlocal iskeyword+=:
@@ -47,8 +47,7 @@ syn match slimBegin  "^\s*\(&[^= ]\)\@!" nextgroup=slimTag,slimClassChar,slimIdC
 syn region  rubyCurlyBlock   start="{" end="}" contains=@slimRubyTop contained
 syn cluster slimRubyTop add=rubyCurlyBlock
 
-syn cluster slimComponent  contains=slimClassChar,slimIdChar,slimAttributes,slimRuby,slimOpenAttribute
-syn cluster slimAttributeComponents contains=htmlArg,slimAttributeString,htmlEvent,htmlCssDefinition
+syn cluster slimComponent  contains=slimClassChar,slimIdChar,slimWrappedAttrs,slimRuby,slimAttr
 
 syn keyword slimDocType contained html 5 1.1 strict frameset mobile basic transitional
 syn match slimDocTypeKeyword "^\s*\(doctype\)\s\+" nextgroup=slimDocType
@@ -59,20 +58,28 @@ syn match slimId           "\%(\w\|-\)\+"     contained nextgroup=@slimComponent
 syn match slimClassChar    "\."               contained nextgroup=slimClass
 syn match slimClass        "\%(\w\|-\)\+"     contained nextgroup=@slimComponent
 
-syn region  slimAttributes  matchgroup=slimAttributesDelimiter start="{" end="}" contained contains=@slimAttributeComponents nextgroup=slimRuby
-syn region  slimAttributes  matchgroup=slimAttributesDelimiter start="\[" end="\]" contained contains=@slimAttributeComponents nextgroup=slimRuby
-syn region  slimAttributes  matchgroup=slimAttributesDelimiter start="(" end=")" contained contains=@slimAttributeComponents nextgroup=slimRuby
+syn region  slimWrappedAttrs  matchgroup=slimWrappedAttrsDelimiter start="\s*{\s*" end="\s*}\s*" contained contains=slimAttr nextgroup=slimRuby
+syn region  slimWrappedAttrs  matchgroup=slimWrappedAttrsDelimiter start="\s*\[\s*" end="\s*\]\s*" contained contains=slimAttr nextgroup=slimRuby
+syn region  slimWrappedAttrs  matchgroup=slimWrappedAttrsDelimiter start="\s*(\s*" end="\s*)\s*" contained contains=slimAttr nextgroup=slimRuby
 
-syn match   slimAttribute "\(\%(\w\|-\)\+\s*=\s*\%([^\s=]\)\+\)" contains=@slimAttributeComponents nextgroup=slimOpenAttribute,slimRuby
+syn match   slimAttr "\s*\%(\w\|-\)\+\s*" contained contains=htmlArg nextgroup=slimAttrAssignment
+syn match   slimAttrAssignment "\s*=\s*" contained nextgroup=slimWrappedAttrValue,slimAttrString
 
-syn region  slimAttributeString start=+\%(=\s*\)\@<='+ skip=+\%(\\\\\)*\\'+ end=+'+ contained contains=slimInterpolation,slimInterpolationEscape
-syn region  slimAttributeString start=+\%(=\s*\)\@<="+ skip=+\%(\\\\\)*\\"+ end=+"+ contained contains=slimInterpolation,slimInterpolationEscape
+syn region  slimWrappedAttrValue matchgroup=slimWrappedAttrValueDelimiter start="{" end="}" contained contains=slimAttrString,@slimRubyTop nextgroup=slimAttr,slimRuby
+syn region  slimWrappedAttrValue matchgroup=slimWrappedAttrValueDelimiter start="\[" end="\]" contained contains=slimAttrString,@slimRubyTop nextgroup=slimAttr,slimRuby
+syn region  slimWrappedAttrValue matchgroup=slimWrappedAttrValueDelimiter start="(" end=")" contained contains=slimAttrString,@slimRubyTop nextgroup=slimAttr,slimRuby
+
+syn region  slimAttrString start=+\s*"+ skip=+\%(\\\\\)*\\"+ end=+"\s*+ contained contains=slimInterpolation,slimInterpolationEscape nextgroup=slimAttr,slimRuby
+syn region  slimAttrString start=+\s*'+ skip=+\%(\\\\\)*\\"+ end=+'\s*+ contained contains=slimInterpolation,slimInterpolationEscape nextgroup=slimAttr,slimRuby
+
+syn region  slimInnerAttrString start=+\s*"+ skip=+\%(\\\\\)*\\"+ end=+"\s*+ contained contains=slimInterpolation,slimInterpolationEscape nextgroup=slimAttr
+syn region  slimInnerAttrString start=+\s*'+ skip=+\%(\\\\\)*\\"+ end=+'\s*+ contained contains=slimInterpolation,slimInterpolationEscape nextgroup=slimAttr
 
 syn region  slimInterpolation matchgroup=slimInterpolationDelimiter start="#{" end="}" contains=@hamlRubyTop containedin=javascriptStringS,javascriptStringD
 syn match   slimInterpolationEscape "\\\@<!\%(\\\\\)*\\\%(\\\ze#{\|#\ze{\)"
 
-syn region  slimRuby   matchgroup=slimRubyOutputChar start="[=]\==[']\=" skip=",\s*$" end="$" contained contains=@slimRubyTop keepend
-syn region  slimRuby   matchgroup=slimRubyChar       start="-"           skip=",\s*$" end="$" contained contains=@slimRubyTop keepend
+syn region  slimRuby   matchgroup=slimRubyOutputChar start="\s*[=]\==[']\=" skip=",\s*$" end="$" contained contains=@slimRubyTop keepend
+syn region  slimRuby   matchgroup=slimRubyChar       start="\s*-"           skip=",\s*$" end="$" contained contains=@slimRubyTop keepend
 
 syn match slimComment /^\(\s*\)[/].*\(\n\1\s.*\)*/
 syn match slimText /^\(\s*\)[`|'].*\(\n\1\s.*\)*/
@@ -93,10 +100,10 @@ hi def link slimClassChar              Type
 hi def link slimClass                  Type
 hi def link slimId                     Identifier
 hi def link slimIdChar                 Identifier
-hi def link slimAttributeString        String
-hi def link slimAttributesDelimiter    Delimiter
+hi def link slimAttrString             String
+hi def link slimInnerAttrString        String
+hi def link slimWrappedAttrsDelimiter  Delimiter
 hi def link slimInterpolationDelimiter Delimiter
-hi def link slimAttributeVariable      Identifier
 hi def link slimRubyOutputChar         slimRubyChar
 hi def link slimRubyChar               Special
 hi def link slimText                   String
@@ -106,6 +113,6 @@ hi def link slimDocType                Identifier
 hi def link slimDocTypeKeyword         Keyword
 hi def link slimInterpolationDelimiter Delimiter
 hi def link slimIEConditional          SpecialComment
-hi def link slimOpenAttribute          Delimiter
+hi def link slimWrappedAttrValueDelimiter Number
 
 let b:current_syntax = "slim"
