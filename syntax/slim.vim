@@ -40,23 +40,22 @@ unlet! b:current_syntax
 syn include @slimHtml syntax/scss.vim
 unlet! b:current_syntax
 
-setlocal iskeyword+=:
-
 syn match slimBegin  "^\s*\(&[^= ]\)\@!" nextgroup=slimTag,slimClassChar,slimIdChar,slimRuby
 
 syn region  rubyCurlyBlock start="{" end="}" contains=@slimRubyTop contained
 syn cluster slimRubyTop    add=rubyCurlyBlock
 
-syn cluster slimComponent contains=slimClassChar,slimIdChar,slimWrappedAttrs,slimRuby,slimAttr
+syn cluster slimComponent contains=slimClassChar,slimIdChar,slimWrappedAttrs,slimRuby,slimAttr,slimInlineTagChar
 
 syn keyword slimDocType        contained html 5 1.1 strict frameset mobile basic transitional
 syn match   slimDocTypeKeyword "^\s*\(doctype\)\s\+" nextgroup=slimDocType
 
-syn match slimTag       "\w\+\(:\w\+\)\=" contained contains=htmlTagName,htmlSpecialTagName nextgroup=@slimComponent
-syn match slimIdChar    "#{\@!"           contained nextgroup=slimId
-syn match slimId        "\%(\w\|-\)\+"    contained nextgroup=@slimComponent
-syn match slimClassChar "\."              contained nextgroup=slimClass
-syn match slimClass     "\%(\w\|-\)\+"    contained nextgroup=@slimComponent
+syn match slimTag           "\w\+"         contained contains=htmlTagName nextgroup=@slimComponent
+syn match slimIdChar        "#{\@!"        contained nextgroup=slimId
+syn match slimId            "\%(\w\|-\)\+" contained nextgroup=@slimComponent
+syn match slimClassChar     "\."           contained nextgroup=slimClass
+syn match slimClass         "\%(\w\|-\)\+" contained nextgroup=@slimComponent
+syn match slimInlineTagChar "\s*:\s*"      contained nextgroup=slimTag,slimClassChar,slimIdChar
 
 syn region slimWrappedAttrs matchgroup=slimWrappedAttrsDelimiter start="\s*{\s*" skip="}\s*\""  end="\s*}\s*"  contained contains=slimAttr nextgroup=slimRuby
 syn region slimWrappedAttrs matchgroup=slimWrappedAttrsDelimiter start="\s*\[\s*" end="\s*\]\s*" contained contains=slimAttr nextgroup=slimRuby
@@ -109,9 +108,9 @@ hi def link slimInnerAttrString           String
 hi def link slimInterpolationDelimiter    Delimiter
 hi def link slimRubyChar                  Special
 hi def link slimRubyOutputChar            Special
-hi def link slimTag                       Special
 hi def link slimText                      String
 hi def link slimWrappedAttrValueDelimiter Delimiter
 hi def link slimWrappedAttrsDelimiter     Delimiter
+hi def link slimInlineTagChar             Delimiter
 
 let b:current_syntax = "slim"
