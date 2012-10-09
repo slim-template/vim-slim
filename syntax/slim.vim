@@ -20,25 +20,6 @@ let b:ruby_no_expensive = 1
 " Include Ruby syntax highlighting
 syn include @slimRubyTop syntax/ruby.vim
 unlet! b:current_syntax
-" Include Haml syntax highlighting
-syn include @slimHaml syntax/haml.vim
-unlet! b:current_syntax
-" Include Sass syntax highlighting
-syn include @slimSass syntax/sass.vim
-unlet! b:current_syntax
-" Include Scss syntax highlighting
-syn include @slimScss syntax/scss.vim
-unlet! b:current_syntax
-" Include Erb syntax highlighting
-syn include @slimErb syntax/eruby.vim
-unlet! b:current_syntax
-" Include Coffeescript syntax highlighting, ignoring errors if it's missing
-silent! syn include @slimCoffee syntax/coffee.vim
-unlet! b:current_syntax
-
-" Include HTML
-syn include @slimHtml syntax/scss.vim
-unlet! b:current_syntax
 
 setlocal iskeyword+=:
 
