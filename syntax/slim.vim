@@ -20,6 +20,9 @@ let b:ruby_no_expensive = 1
 " Include Ruby syntax highlighting
 syn include @slimRubyTop syntax/ruby.vim
 unlet! b:current_syntax
+" Include Haml syntax highlighting
+syn include @slimHaml syntax/haml.vim
+unlet! b:current_syntax
 
 syn match slimBegin  "^\s*\(&[^= ]\)\@!" nextgroup=slimTag,slimClassChar,slimIdChar,slimRuby
 
@@ -65,12 +68,7 @@ syn match slimComment /^\(\s*\)[/].*\(\n\1\s.*\)*/
 syn match slimText    /^\(\s*\)[`|'].*\(\n\1\s.*\)*/
 
 syn match slimFilter /\s*\w\+:\s*/                            contained
-syn match slimJs     /^\(\s*\)\<javascript:\>.*\(\n\1\s.*\)*/ contains=@htmlJavaScript,slimFilter
-syn match slimCoffee /^\(\s*\)\<coffee:\>.*\(\n\1\s.*\)*/     contains=@slimCoffee,slimFilter
 syn match slimHaml   /^\(\s*\)\<haml:\>.*\(\n\1\s.*\)*/       contains=@slimHaml,slimFilter
-syn match slimSass   /^\(\s*\)\<sass:\>.*\(\n\1\s.*\)*/       contains=@slimSass,slimFilter
-syn match slimScss   /^\(\s*\)\<scss:\>.*\(\n\1\s.*\)*/       contains=@slimScss,slimFilter
-syn match slimErb    /^\(\s*\)\<erb:\>.*\(\n\1\s.*\)*/        contains=@slimErb,slimFilter
 
 syn match slimIEConditional "\%(^\s*/\)\@<=\[\s*if\>[^]]*]" contained containedin=slimComment
 
