@@ -34,6 +34,8 @@ syn cluster slimComponent contains=slimClassChar,slimIdChar,slimWrappedAttrs,sli
 syn keyword slimDocType        contained html 5 1.1 strict frameset mobile basic transitional
 syn match   slimDocTypeKeyword "^\s*\(doctype\)\s\+" nextgroup=slimDocType
 
+syn keyword slimTodo        FIXME TODO NOTE OPTIMIZE XXX contained
+
 syn match slimTag           "\w\+"         contained contains=htmlTagName nextgroup=@slimComponent
 syn match slimIdChar        "#{\@!"        contained nextgroup=slimId
 syn match slimId            "\%(\w\|-\)\+" contained nextgroup=@slimComponent
@@ -64,7 +66,7 @@ syn match  slimInterpolationEscape "\\\@<!\%(\\\\\)*\\\%(\\\ze#{\|#\ze{\)"
 syn region slimRuby matchgroup=slimRubyOutputChar start="\s*[=]\==[']\=" skip=",\s*$" end="$" contained contains=@slimRubyTop keepend
 syn region slimRuby matchgroup=slimRubyChar       start="\s*-"           skip=",\s*$" end="$" contained contains=@slimRubyTop keepend
 
-syn match slimComment /^\(\s*\)[/].*\(\n\1\s.*\)*/
+syn match slimComment /^\(\s*\)[/].*\(\n\1\s.*\)*/ contains=slimTodo
 syn match slimText    /^\(\s*\)[`|'].*\(\n\1\s.*\)*/
 
 syn match slimFilter /\s*\w\+:\s*/                            contained
@@ -88,6 +90,7 @@ hi def link slimInterpolationDelimiter    Delimiter
 hi def link slimRubyChar                  Special
 hi def link slimRubyOutputChar            Special
 hi def link slimText                      String
+hi def link slimTodo                      Todo
 hi def link slimWrappedAttrValueDelimiter Delimiter
 hi def link slimWrappedAttrsDelimiter     Delimiter
 hi def link slimInlineTagChar             Delimiter
