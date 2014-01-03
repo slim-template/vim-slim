@@ -18,3 +18,9 @@ slim syntax highlighting for vim.
         pushd ~/.vim/bundle; \
         git clone git@github.com:slim-template/vim-slim.git; \
         popd
+
+
+Install with vbundle
+--------------------
+
+        Bundle 'slim-template/vim-slim.git'
