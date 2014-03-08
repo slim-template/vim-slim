@@ -69,7 +69,7 @@ syn region slimRuby matchgroup=slimRubyOutputChar start="\s*[=]\==[']\=" skip=",
 syn region slimRuby matchgroup=slimRubyChar       start="\s*-"           skip=",\s*$" end="$" contained contains=@slimRubyTop keepend
 
 syn match slimComment /^\(\s*\)[/].*\(\n\1\s.*\)*/ contains=slimTodo
-syn match slimText    /^\(\s*\)[`|'].*\(\n\1\s.*\)*/
+syn match slimText    /^\(\s*\)[`|'].*\(\n\1\s.*\)*/ contains=slimInterpolation
 
 syn match slimFilter /\s*\w\+:\s*/                            contained
 syn match slimHaml   /^\(\s*\)\<haml:\>.*\(\n\1\s.*\)*/       contains=@slimHaml,slimFilter
