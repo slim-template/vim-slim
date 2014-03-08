@@ -48,12 +48,13 @@ syn region slimWrappedAttrs matchgroup=slimWrappedAttrsDelimiter start="\s*{\s*"
 syn region slimWrappedAttrs matchgroup=slimWrappedAttrsDelimiter start="\s*\[\s*" end="\s*\]\s*" contained contains=slimAttr nextgroup=slimRuby
 syn region slimWrappedAttrs matchgroup=slimWrappedAttrsDelimiter start="\s*(\s*"  end="\s*)\s*"  contained contains=slimAttr nextgroup=slimRuby
 
-syn match slimAttr "\s*\%(\w\|-\)\+\s*" contained contains=htmlArg nextgroup=slimAttrAssignment
+syn match slimAttr /\s*\%(\w\|-\)\+\s*=/me=e-1 contained contains=htmlArg nextgroup=slimAttrAssignment
 syn match slimAttrAssignment "\s*=\s*" contained nextgroup=slimWrappedAttrValue,slimAttrString
 
 syn region slimWrappedAttrValue matchgroup=slimWrappedAttrValueDelimiter start="{" end="}" contained contains=slimAttrString,@slimRubyTop nextgroup=slimAttr,slimRuby,slimInlineTagChar
 syn region slimWrappedAttrValue matchgroup=slimWrappedAttrValueDelimiter start="\[" end="\]" contained contains=slimAttrString,@slimRubyTop nextgroup=slimAttr,slimRuby,slimInlineTagChar
 syn region slimWrappedAttrValue matchgroup=slimWrappedAttrValueDelimiter start="(" end=")" contained contains=slimAttrString,@slimRubyTop nextgroup=slimAttr,slimRuby,slimInlineTagChar
+syn region slimWrappedAttrValue start="[^"']" end="\s" contained contains=slimAttrString,@slimRubyTop nextgroup=slimAttr,slimRuby,slimInlineTagChar
 
 syn region slimAttrString start=+\s*"+ skip=+\%(\\\\\)*\\"+ end=+"\s*+ contained contains=slimInterpolation,slimInterpolationEscape nextgroup=slimAttr,slimRuby,slimInlineTagChar
 syn region slimAttrString start=+\s*'+ skip=+\%(\\\\\)*\\"+ end=+'\s*+ contained contains=slimInterpolation,slimInterpolationEscape nextgroup=slimAttr,slimRuby,slimInlineTagChar
