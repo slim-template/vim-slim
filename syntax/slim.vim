@@ -50,7 +50,7 @@ syn region slimWrappedAttrs matchgroup=slimWrappedAttrsDelimiter start="\[\s*" e
 syn region slimWrappedAttrs matchgroup=slimWrappedAttrsDelimiter start="(\s*"  end="\s*)\s*"  contained contains=slimAttr,slimSingleAttr nextgroup=slimRuby
 
 syn match slimAttr /\s*\%(\w\|-\|:\)\+\s*=/me=e-1 contained contains=htmlArg nextgroup=slimAttrAssignment
-syn match slimSingleAttr /\s*\%(\w\|-\|:\)\+\s*/ contained contains=htmlArg nextgroup=slimAttr,slimSingleAttr
+syn match slimSingleAttr "\%(\w\|-\|:\)\+" contained contains=htmlArg nextgroup=slimAttr,slimSingleAttr
 syn match slimAttrAssignment "\s*=\s*" contained nextgroup=slimWrappedAttrValue,slimAttrString,slimAttrSymbol
 
 syn region slimWrappedAttrValue start="[^"']" end="\s\|$" contained contains=slimAttrString,@slimRubyTop nextgroup=slimAttr,slimRuby,slimInlineTagChar
