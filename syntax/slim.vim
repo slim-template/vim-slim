@@ -45,11 +45,12 @@ syn match slimClass         "\%(\w\|-\)\+" contained nextgroup=@slimComponent
 syn match slimBrackets      "<\?>\?"       contained nextgroup=@slimComponent
 syn match slimInlineTagChar "\s*:\s*"      contained nextgroup=slimTag,slimClassChar,slimIdChar
 
-syn region slimWrappedAttrs matchgroup=slimWrappedAttrsDelimiter start="{\s*" skip="}\s*\""  end="\s*}\s*"  contained contains=slimAttr nextgroup=slimRuby
-syn region slimWrappedAttrs matchgroup=slimWrappedAttrsDelimiter start="\[\s*" end="\s*\]\s*" contained contains=slimAttr nextgroup=slimRuby
-syn region slimWrappedAttrs matchgroup=slimWrappedAttrsDelimiter start="(\s*"  end="\s*)\s*"  contained contains=slimAttr nextgroup=slimRuby
+syn region slimWrappedAttrs matchgroup=slimWrappedAttrsDelimiter start="{\s*" skip="}\s*\""  end="\s*}\s*"  contained contains=slimAttr,slimSingleAttr nextgroup=slimRuby
+syn region slimWrappedAttrs matchgroup=slimWrappedAttrsDelimiter start="\[\s*" end="\s*\]\s*" contained contains=slimAttr,slimSingleAttr nextgroup=slimRuby
+syn region slimWrappedAttrs matchgroup=slimWrappedAttrsDelimiter start="(\s*"  end="\s*)\s*"  contained contains=slimAttr,slimSingleAttr nextgroup=slimRuby
 
 syn match slimAttr /\s*\%(\w\|-\|:\)\+\s*=/me=e-1 contained contains=htmlArg nextgroup=slimAttrAssignment
+syn match slimSingleAttr /\s*\%(\w\|-\|:\)\+\s*/ contained contains=htmlArg nextgroup=slimAttr,slimSingleAttr
 syn match slimAttrAssignment "\s*=\s*" contained nextgroup=slimWrappedAttrValue,slimAttrString,slimAttrSymbol
 
 syn region slimWrappedAttrValue start="[^"']" end="\s\|$" contained contains=slimAttrString,@slimRubyTop nextgroup=slimAttr,slimRuby,slimInlineTagChar
@@ -90,6 +91,7 @@ hi def link slimAttrString                String
 hi def link slimBegin                     String
 hi def link slimClass                     Type
 hi def link slimAttr                      Type
+hi def link slimSingleAttr                Type
 hi def link slimClassChar                 Type
 hi def link slimComment                   Comment
 hi def link slimDocType                   Identifier
