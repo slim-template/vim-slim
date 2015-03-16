@@ -30,7 +30,7 @@ If you are already using pathogen, you can skip to step 3.
         popd
 
 
-Install with vbundle
+Install with Vundle
 --------------------
 
 1. [Install Vundle] into `~/.vim/bundle/`.
