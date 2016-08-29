@@ -1,9 +1,9 @@
-autocmd BufNewFile,BufRead *.slim set filetype=slim
-
 function! s:DetectSlimLang()
-    if getline(1) =~ '^#!.*\<slim\>'
-        set filetype=slim
-    endif
+  if getline(1) == "doctype html"
+    setlocal filetype=slim
+  else
+    setfiletype slim
+  endif
 endfunction
 
-autocmd BufNewFile,BufRead * call s:DetectSlimLang()
+autocmd BufNewFile,BufRead *.slim call s:DetectSlimLang()
