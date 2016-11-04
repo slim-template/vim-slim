@@ -69,13 +69,12 @@ Known Issues
 
 We use `setfiletype` upon autodetect, which does not overrides filetype once it
 was set. That leads into an issue when filetype is set to `html` before we took
-our chance (happens when slim file has `doctype html` header).
-
-This  happens because:
+our chance (happens when slim file has `doctype html` header):
 
 > Vim's `filetype.vim` has an `autocmd` that tries to detect *html* files based
 > on *doctype* and this is triggered **before** scripts in `ftdetect/*`
 > are sourced.
+>
 > -- https://github.com/slim-template/vim-slim/issues/38#issuecomment-23760100
 
 To avoid that you have two options. Either using `doctype 5` instead of
