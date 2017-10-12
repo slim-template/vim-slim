@@ -69,7 +69,7 @@ syn match  slimInterpolationEscape "\\\@<!\%(\\\\\)*\\\%(\\\ze#{\|#\ze{\)"
 syn region slimPlainFilter      matchgroup=slimFilter start="^\z(\s*\)\%(rdoc\|textile\|markdown\|wiki\):\s*$" end="^\%(\z1 \| *$\)\@!"
 syn region slimJavascriptFilter matchgroup=slimFilter start="^\z(\s*\)javascript:\s*$" end="^\%(\z1 \| *$\)\@!" contains=@htmlJavaScript,slimInterpolation keepend
 syn region slimCoffeeFilter matchgroup=slimFilter start="^\z(\s*\)coffee:\s*$" end="^\%(\z1 \| *$\)\@!" contains=@coffeeAll,slimInterpolation keepend
-syn region slimCSSFilter matchgroup=slimFilter start="^\z(\s*\)css:\s*$" end="^\%(\z1 \| *$\)\@!" contains=@htmlCss,slimInterpolation keepend
+syn region slimCSSFilter matchgroup=slimFilter start="^\z(\s*\)s?css:\s*$" end="^\%(\z1 \| *$\)\@!" contains=@htmlCss,slimInterpolation keepend
 syn region slimSassFilter matchgroup=slimFilter start="^\z(\s*\)sass:\s*$" end="^\%(\z1 \| *$\)\@!" contains=@hamlSassTop
 
 syn region slimRuby matchgroup=slimRubyOutputChar start="\s*[=]\==[']\=" skip="\%\(,\s*\|\\\)$" end="$" contained contains=@slimRubyTop keepend
