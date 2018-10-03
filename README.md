@@ -46,8 +46,8 @@ Install with Vundle
     set rtp+=~/.vim/bundle/Vundle.vim
     call vundle#begin()
 
-    Plugin 'gmarik/Vundle.vim'
-    Plugin 'slim-template/vim-slim.git'
+    Plug 'gmarik/Vundle.vim'
+    Plug 'slim-template/vim-slim.git'
 
     call vundle#end()
     syntax enable
