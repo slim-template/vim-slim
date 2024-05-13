@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead *.slim setfiletype slim
+autocmd BufNewFile,BufRead *.slim setf slim
